@@ -26,7 +26,7 @@ A premium, single-page portfolio built on the existing Lovable stack (React + Vi
 5. **Projects** — 6 cards in a responsive grid. Cover images generated locally (no Unsplash API call needed at runtime — see Technical notes). Hover lift, image zoom, overlay tint. Tech badges, Live Demo + GitHub buttons.
 6. **Testimonials** — auto-playing carousel (embla, already in deps via shadcn), pauses on hover, 5-star ratings, initials avatars.
 7. **Experience & Education** — vertical alternating timeline (left/right desktop, single-column mobile) with the 6 entries from the brief.
-8. **Contact** — split layout: info cards (Email, GitHub, Location, "Open to Work" badge) + React-Hook-Form/Zod-validated form. Submit builds a `mailto:kelvinkipron0659@gmail.com?subject=...&body=...` link and opens it; success state shows animated checkmark + "Message sent! I'll reply within 24 hours."
+8. **Contact** — split layout: info cards (Email, GitHub, Location, "Open to Work" badge) + React-Hook-Form/Zod-validated form. Submit builds a `mailto:kelvinkiprono659@gmail.com?subject=...&body=...` link and opens it; success state shows animated checkmark + "Message sent! I'll reply within 24 hours."
 9. **Footer** — copyright, GitHub + Email + LinkedIn placeholder, back-to-top.
 10. **Floating widgets** — Back-to-top button (appears after 300px scroll), initial KK loading screen with ≤1.5s fade-out.
 
