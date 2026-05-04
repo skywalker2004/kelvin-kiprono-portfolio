@@ -148,7 +148,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: "2022 — 2024",
     title: "Diploma in Information Technology",
-    org: "Technical University of Kenya",
+    org: "Institute of Software Technologies",
     description:
       "Software engineering, networking, databases and systems administration — graduated with hands-on project work.",
     kind: "edu",
@@ -156,21 +156,21 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: "2023",
     title: "Node.js & Express Certification",
-    org: "Udemy / freeCodeCamp",
+    org: "Institute of Software Technologies",
     description: "Production-grade APIs, authentication, validation and deployment patterns.",
     kind: "cert",
   },
   {
     year: "2023",
     title: "React Developer Certification",
-    org: "Meta / Coursera",
+    org: "Institute of Software Technologies",
     description: "Modern React, hooks, state management, performance and testing.",
     kind: "cert",
   },
   {
     year: "2022",
     title: "HTML, CSS & JavaScript",
-    org: "The Odin Project",
+    org: "Institute of Software Technologies",
     description: "Foundational web development with project-driven learning.",
     kind: "cert",
   },
