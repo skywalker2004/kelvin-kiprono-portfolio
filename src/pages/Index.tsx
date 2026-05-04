@@ -1,16 +1,54 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Helmet } from "react-helmet-async";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { BackToTop } from "@/components/layout/BackToTop";
+import { LoadingScreen } from "@/components/layout/LoadingScreen";
+import { Hero } from "@/components/sections/Hero";
+import { About } from "@/components/sections/About";
+import { Skills } from "@/components/sections/Skills";
+import { Projects } from "@/components/sections/Projects";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { Timeline } from "@/components/sections/Timeline";
+import { Contact } from "@/components/sections/Contact";
+import { SITE } from "@/lib/site";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <>
+      <Helmet>
+        <title>Kelvin Kiprono — Full-Stack Developer & DevOps Enthusiast</title>
+        <meta
+          name="description"
+          content="Kelvin Kiprono — Full-Stack Developer in Nairobi, Kenya specialising in React, Node.js & DevOps. Available remote and on-site worldwide."
+        />
+        <link rel="canonical" href="/" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: SITE.name,
+          jobTitle: "Full-Stack Developer",
+          email: `mailto:${SITE.email}`,
+          url: typeof window !== "undefined" ? window.location.origin : "",
+          address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
+          sameAs: [SITE.github],
+        })}</script>
+      </Helmet>
+
+      <LoadingScreen />
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Testimonials />
+        <Timeline />
+        <Contact />
+      </main>
+      <Footer />
+      <BackToTop />
+    </>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
