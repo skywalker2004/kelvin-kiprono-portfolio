@@ -33,18 +33,10 @@ const Card = ({ p, i }: { p: Project; i: number }) => (
         </div>
         <div className="mt-6 flex gap-2 pt-4">
           <a
-            href={p.live}
-            target="_blank"
-            rel="noreferrer"
-            className="group/btn inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-card-soft hover:bg-primary/90 transition-colors"
-          >
-            Live Demo <ArrowUpRight className="size-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-          </a>
-          <a
             href={p.github}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium hover:border-primary/50 hover:text-primary transition-colors"
+            className="group/btn inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-card-soft hover:bg-primary/90 transition-colors"
           >
             <Github className="size-3.5" /> GitHub
           </a>
