@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import { Reveal } from "@/components/shared/Reveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { PROJECTS, type Project } from "@/lib/data";
