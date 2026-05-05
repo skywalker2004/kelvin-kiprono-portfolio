@@ -133,14 +133,14 @@ export const Contact = () => {
                   <label htmlFor="name" className="mb-1.5 block text-xs font-medium text-muted-foreground">
                     Full name
                   </label>
-                  <Input id="name" placeholder="Kelvin Kiprono" {...register("name")} aria-invalid={!!errors.name} />
+                  <Input id="name" placeholder="Your name" {...register("name")} aria-invalid={!!errors.name} />
                   {errors.name && <p className="mt-1 text-xs text-destructive">{errors.name.message}</p>}
                 </div>
                 <div>
                   <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-muted-foreground">
                     Email
                   </label>
-                  <Input id="email" type="email" placeholder="kelvinkiprono659@gmail.com" {...register("email")} aria-invalid={!!errors.email} />
+                  <Input id="email" type="email" placeholder="Your email" {...register("email")} aria-invalid={!!errors.email} />
                   {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email.message}</p>}
                 </div>
               </div>
