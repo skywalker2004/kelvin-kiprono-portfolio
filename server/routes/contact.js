@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
 import mongoose from "mongoose";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export const contactRouter = Router();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const contactSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
@@ -35,27 +37,23 @@ contactRouter.post("/", validateContact, async (req, res) => {
 
     const { name, email, subject, message } = req.body;
 
-    // Save to MongoDB
     const contact = await Contact.create({ name, email, subject, message });
     console.log("? Message saved to MongoDB:", contact._id);
 
-    // Send email non-blocking
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-      },
-    });
-
-    transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
+    resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
       to: process.env.GMAIL_USER,
-      replyTo: email,
+      reply_to: email,
       subject: `[Portfolio] ${subject}`,
-      html: `<h2>New message from ${name}</h2><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`,
-    }).then(() => console.log("? Email sent to Kelvin"))
-      .catch((err) => console.error("?? Email error:", err.message));
+      html: `
+        <h2>New message from ${name}</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
+    }).then(() => console.log("? Email sent via Resend"))
+      .catch((err) => console.error("?? Resend error:", err.message));
 
     res.status(201).json({
       success: true,
