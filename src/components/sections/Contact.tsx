@@ -18,10 +18,22 @@ const schema = z.object({
   message: z.string().trim().min(10, "Message is too short").max(2000),
 });
 type FormData = z.infer<typeof schema>;
+type ContactChannel = "email" | "whatsapp";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const InfoCard = ({ icon: Icon, label, value, href }: { icon: typeof Mail; label: string; value: string; href?: string; }) => {
+export const buildWhatsAppUrl = (name: string, message: string): string => {
+  const text = `Hi Kelvin, my name is ${name || "there"}. ${message || "I'd like to discuss a project with you."}`;
+  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
+};
+
+const WhatsAppIcon = ({ className = "size-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M20.52 3.48A11.84 11.84 0 0 0 12.1 0C5.5 0 .13 5.37.13 11.98c0 2.11.55 4.17 1.6 5.96L0 24l6.2-1.62A12 12 0 0 0 12.1 24c6.6 0 12-5.37 12-11.98 0-3.2-1.25-6.22-3.48-8.54ZM12.1 21.9c-1.93 0-3.82-.52-5.46-1.5l-.39-.24-3.68.96 1-3.56-.25-.39A9.9 9.9 0 0 1 2.2 11.98c0-5.47 4.45-9.92 9.9-9.92 2.64 0 5.13 1.03 7 2.9a9.86 9.86 0 0 1 2.9 7c0 5.47-4.45 9.92-9.9 9.92Zm5.44-7.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.08-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.51-1.79-1.68-2.09-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.67-1.6-.92-2.2-.24-.57-.49-.49-.67-.49h-.57c-.2 0-.52.08-.8.38-.27.3-1.04 1.01-1.04 2.46s1.06 2.85 1.21 3.05c.15.2 2.08 3.18 5.04 4.46.7.3 1.25.48 1.68.62.7.22 1.33.19 1.83.12.56-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.28-.2-.58-.35Z" />
+  </svg>
+);
+
+const InfoCard = ({ icon: Icon, label, value, href }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string; href?: string; }) => {
   const Inner = (
     <div className="glass-card flex items-center gap-4 p-5">
       <div className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
@@ -33,14 +45,28 @@ const InfoCard = ({ icon: Icon, label, value, href }: { icon: typeof Mail; label
       </div>
     </div>
   );
-  return href ? (
-    <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="block">{Inner}</a>
-  ) : Inner;
+
+  if (!href) return Inner;
+
+  return (
+    <a
+      href={href}
+      target={href.startsWith("http") ? "_blank" : undefined}
+      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      aria-label={`${label}: ${value}`}
+      className="block"
+    >
+      {Inner}
+    </a>
+  );
 };
 
 export const Contact = () => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [channel, setChannel] = useState<ContactChannel>("email");
+  const [whatsappName, setWhatsappName] = useState("");
+  const [whatsappMessage, setWhatsappMessage] = useState("");
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
@@ -64,6 +90,11 @@ export const Contact = () => {
     }
   };
 
+  const handleWhatsAppClick = () => {
+    const url = buildWhatsAppUrl(whatsappName, whatsappMessage);
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <section id="contact" className="section-pad relative bg-muted/20">
       <div className="container-px mx-auto max-w-6xl">
@@ -73,7 +104,8 @@ export const Contact = () => {
             <Reveal><InfoCard icon={Mail} label="Email" value={SITE.email} href={`mailto:${SITE.email}`} /></Reveal>
             <Reveal delay={0.05}><InfoCard icon={Github} label="GitHub" value="@skywalker2004" href={SITE.github} /></Reveal>
             <Reveal delay={0.1}><InfoCard icon={MapPin} label="Location" value={SITE.location} /></Reveal>
-            <Reveal delay={0.15}>
+            <Reveal delay={0.15}><InfoCard icon={WhatsAppIcon} label="WhatsApp" value="+254 732 049 230" href={`https://wa.me/${SITE.whatsapp}`} /></Reveal>
+            <Reveal delay={0.2}>
               <div className="glass-card flex items-center gap-3 p-5">
                 <span className="grid size-11 place-items-center rounded-xl bg-emerald-500/15 text-emerald-500">
                   <BadgeCheck className="size-5" />
@@ -86,61 +118,122 @@ export const Contact = () => {
             </Reveal>
           </div>
           <Reveal delay={0.1} className="md:col-span-3">
-            <form onSubmit={handleSubmit(onSubmit)} className="glass-card relative p-6 md:p-8">
-              <AnimatePresence>
-                {status === "success" && (
-                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="absolute inset-0 z-10 grid place-items-center rounded-2xl bg-card/95 backdrop-blur">
-                    <div className="text-center px-6">
-                      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 280, damping: 18 }} className="mx-auto grid size-16 place-items-center rounded-full bg-emerald-500 text-white shadow-glow">
-                        <CheckCircle2 className="size-8" />
+            <div className="glass-card relative p-4 md:p-6">
+              <div className="mb-6 flex w-full max-w-md items-center gap-1 rounded-full bg-card/60 p-1 backdrop-blur">
+                {(["email", "whatsapp"] as const).map((option) => {
+                  const isActive = channel === option;
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      aria-label={`Switch to ${option === "email" ? "Email" : "WhatsApp"} contact`}
+                      onClick={() => setChannel(option)}
+                      className={`flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                        isActive
+                          ? "bg-primary text-primary-foreground shadow-glow"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {option === "email" ? "Email" : "WhatsApp"}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {channel === "email" ? (
+                <form onSubmit={handleSubmit(onSubmit)} className="relative">
+                  <AnimatePresence>
+                    {status === "success" && (
+                      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="absolute inset-0 z-10 grid place-items-center rounded-2xl bg-card/95 backdrop-blur">
+                        <div className="text-center px-6">
+                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 280, damping: 18 }} className="mx-auto grid size-16 place-items-center rounded-full bg-emerald-500 text-white shadow-glow">
+                            <CheckCircle2 className="size-8" />
+                          </motion.div>
+                          <h3 className="mt-4 font-display text-lg font-bold">Message sent! ?</h3>
+                          <p className="mt-1 text-sm text-muted-foreground">Saved to database and emailed. I will reply within 24 hours.</p>
+                        </div>
                       </motion.div>
-                      <h3 className="mt-4 font-display text-lg font-bold">Message sent! ?</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">Saved to database and emailed. I will reply within 24 hours.</p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <AnimatePresence>
-                {status === "error" && (
-                  <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-4 flex items-start gap-3 rounded-xl border border-destructive/30 bg-destructive/10 p-4">
-                    <AlertCircle className="size-5 shrink-0 text-destructive mt-0.5" />
+                    )}
+                  </AnimatePresence>
+                  <AnimatePresence>
+                    {status === "error" && (
+                      <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-4 flex items-start gap-3 rounded-xl border border-destructive/30 bg-destructive/10 p-4">
+                        <AlertCircle className="size-5 shrink-0 text-destructive mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-destructive">Could not send message</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{errorMsg}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <p className="text-sm font-medium text-destructive">Could not send message</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{errorMsg}</p>
+                      <label htmlFor="name" className="mb-1.5 block text-xs font-medium text-muted-foreground">Full name</label>
+                      <Input id="name" placeholder="Your name" {...register("name")} aria-invalid={!!errors.name} aria-label="Your full name" />
+                      {errors.name && <p className="mt-1 text-xs text-destructive">{errors.name.message}</p>}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="name" className="mb-1.5 block text-xs font-medium text-muted-foreground">Full name</label>
-                  <Input id="name" placeholder="Your name" {...register("name")} aria-invalid={!!errors.name} />
-                  {errors.name && <p className="mt-1 text-xs text-destructive">{errors.name.message}</p>}
+                    <div>
+                      <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-muted-foreground">Email</label>
+                      <Input id="email" type="email" placeholder="Your email" {...register("email")} aria-invalid={!!errors.email} aria-label="Your email address" />
+                      {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email.message}</p>}
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <label htmlFor="subject" className="mb-1.5 block text-xs font-medium text-muted-foreground">Subject</label>
+                    <Input id="subject" placeholder="Project enquiry" {...register("subject")} aria-invalid={!!errors.subject} aria-label="Email subject" />
+                    {errors.subject && <p className="mt-1 text-xs text-destructive">{errors.subject.message}</p>}
+                  </div>
+                  <div className="mt-4">
+                    <label htmlFor="message" className="mb-1.5 block text-xs font-medium text-muted-foreground">Message</label>
+                    <Textarea id="message" rows={6} placeholder="Tell me a little about your project, timeline, and goals." {...register("message")} aria-invalid={!!errors.message} aria-label="Your email message" />
+                    {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message.message}</p>}
+                  </div>
+                  <div className="mt-6 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <a href={`mailto:${SITE.email}`} target="_blank" rel="noopener noreferrer" aria-label="Email Kelvin directly" className="text-xs text-muted-foreground hover:text-primary">Or email me directly ?</a>
+                    <Button type="submit" disabled={isSubmitting} size="lg" className="group rounded-full bg-primary shadow-glow hover:bg-primary/90" aria-label="Send your message by email">
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                      <Send className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
+                    </Button>
+                  </div>
+                </form>
+              ) : (
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="whatsapp-name" className="mb-1.5 block text-xs font-medium text-muted-foreground">Name</label>
+                    <Input
+                      id="whatsapp-name"
+                      value={whatsappName}
+                      onChange={(event) => setWhatsappName(event.target.value)}
+                      placeholder="Your name"
+                      aria-label="Your name for WhatsApp message"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="whatsapp-message" className="mb-1.5 block text-xs font-medium text-muted-foreground">Message</label>
+                    <Textarea
+                      id="whatsapp-message"
+                      rows={6}
+                      value={whatsappMessage}
+                      onChange={(event) => setWhatsappMessage(event.target.value)}
+                      placeholder="Tell me about your project or idea"
+                      aria-label="Your message for WhatsApp chat"
+                    />
+                  </div>
+                  <div className="flex justify-end">
+                    <Button
+                      type="button"
+                      size="lg"
+                      onClick={handleWhatsAppClick}
+                      className="group rounded-full bg-emerald-500 text-white shadow-glow hover:bg-emerald-500/90"
+                      aria-label="Open a WhatsApp chat with Kelvin"
+                    >
+                      <WhatsAppIcon className="mr-2 size-4" />
+                      Chat on WhatsApp
+                    </Button>
+                  </div>
                 </div>
-                <div>
-                  <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-muted-foreground">Email</label>
-                  <Input id="email" type="email" placeholder="Your email" {...register("email")} aria-invalid={!!errors.email} />
-                  {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email.message}</p>}
-                </div>
-              </div>
-              <div className="mt-4">
-                <label htmlFor="subject" className="mb-1.5 block text-xs font-medium text-muted-foreground">Subject</label>
-                <Input id="subject" placeholder="Project enquiry" {...register("subject")} aria-invalid={!!errors.subject} />
-                {errors.subject && <p className="mt-1 text-xs text-destructive">{errors.subject.message}</p>}
-              </div>
-              <div className="mt-4">
-                <label htmlFor="message" className="mb-1.5 block text-xs font-medium text-muted-foreground">Message</label>
-                <Textarea id="message" rows={6} placeholder="Tell me a little about your project, timeline, and goals…" {...register("message")} aria-invalid={!!errors.message} />
-                {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message.message}</p>}
-              </div>
-              <div className="mt-6 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
-                <a href={`mailto:${SITE.email}`} className="text-xs text-muted-foreground hover:text-primary">Or email me directly ?</a>
-                <Button type="submit" disabled={isSubmitting} size="lg" className="group rounded-full bg-primary shadow-glow hover:bg-primary/90">
-                  {isSubmitting ? "Sending…" : "Send Message"}
-                  <Send className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
-                </Button>
-              </div>
-            </form>
+              )}
+            </div>
           </Reveal>
         </div>
       </div>

@@ -5,6 +5,7 @@ export const SITE = {
   location: "Nairobi, Kenya",
   availability: "Available remote & on-site worldwide",
   email: "kelvinkiprono659@gmail.com",
+  whatsapp: "254732049230",
   github: "https://github.com/skywalker2004",
   linkedin: "#",
   cv: "/kelvin-kiprono-cv.pdf",
