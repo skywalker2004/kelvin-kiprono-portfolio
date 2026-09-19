@@ -1,4 +1,5 @@
 import { Github, Mail, Linkedin } from "lucide-react";
+import { WhatsAppIcon } from "@/components/shared/icons";
 import { SITE } from "@/lib/site";
 
 export const Footer = () => (
@@ -11,7 +12,7 @@ export const Footer = () => (
         <a
           href={SITE.github}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           aria-label="GitHub"
           className="grid size-10 place-items-center rounded-full border border-border bg-card/50 hover:border-primary/50 hover:text-primary transition-colors"
         >
@@ -19,6 +20,8 @@ export const Footer = () => (
         </a>
         <a
           href={SITE.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="LinkedIn"
           className="grid size-10 place-items-center rounded-full border border-border bg-card/50 hover:border-primary/50 hover:text-primary transition-colors"
         >
@@ -26,10 +29,21 @@ export const Footer = () => (
         </a>
         <a
           href={`mailto:${SITE.email}`}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="Email"
           className="grid size-10 place-items-center rounded-full border border-border bg-card/50 hover:border-primary/50 hover:text-primary transition-colors"
         >
           <Mail className="size-4" />
+        </a>
+        <a
+          href={`https://wa.me/${SITE.whatsapp}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with Kelvin on WhatsApp"
+          className="grid size-10 place-items-center rounded-full border border-border bg-card/50 hover:border-primary/50 hover:text-primary transition-colors"
+        >
+          <WhatsAppIcon className="size-4" />
         </a>
       </div>
     </div>

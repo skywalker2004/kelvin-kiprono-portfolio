@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { SITE } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/shared/icons";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(80),
@@ -26,12 +27,6 @@ export const buildWhatsAppUrl = (name: string, message: string): string => {
   const text = `Hi Kelvin, my name is ${name || "there"}. ${message || "I'd like to discuss a project with you."}`;
   return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
 };
-
-const WhatsAppIcon = ({ className = "size-4" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-    <path d="M20.52 3.48A11.84 11.84 0 0 0 12.1 0C5.5 0 .13 5.37.13 11.98c0 2.11.55 4.17 1.6 5.96L0 24l6.2-1.62A12 12 0 0 0 12.1 24c6.6 0 12-5.37 12-11.98 0-3.2-1.25-6.22-3.48-8.54ZM12.1 21.9c-1.93 0-3.82-.52-5.46-1.5l-.39-.24-3.68.96 1-3.56-.25-.39A9.9 9.9 0 0 1 2.2 11.98c0-5.47 4.45-9.92 9.9-9.92 2.64 0 5.13 1.03 7 2.9a9.86 9.86 0 0 1 2.9 7c0 5.47-4.45 9.92-9.9 9.92Zm5.44-7.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.08-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.51-1.79-1.68-2.09-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.67-1.6-.92-2.2-.24-.57-.49-.49-.67-.49h-.57c-.2 0-.52.08-.8.38-.27.3-1.04 1.01-1.04 2.46s1.06 2.85 1.21 3.05c.15.2 2.08 3.18 5.04 4.46.7.3 1.25.48 1.68.62.7.22 1.33.19 1.83.12.56-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.28-.2-.58-.35Z" />
-  </svg>
-);
 
 const InfoCard = ({ icon: Icon, label, value, href }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string; href?: string; }) => {
   const Inner = (

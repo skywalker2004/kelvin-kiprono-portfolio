@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
+import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { LoadingScreen } from "@/components/layout/LoadingScreen";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
@@ -47,6 +48,7 @@ const Index = () => {
       </main>
       <Footer />
       <BackToTop />
+      <FloatingWhatsApp />
     </>
   );
 };
