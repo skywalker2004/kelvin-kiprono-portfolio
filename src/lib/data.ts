@@ -1,9 +1,9 @@
-import wazicare from "@/assets/projects/wazicare.jpg";
-import sparkle from "@/assets/projects/sparkle-clean.jpg";
-import bonke from "@/assets/projects/bonke-studios.jpg";
-import event from "@/assets/projects/event-booking.jpg";
-import hotel from "@/assets/projects/hotel-booking.jpg";
-import portfolio from "@/assets/projects/portfolio.jpg";
+import wazicare from "@/assets/projects/wazicare.webp";
+import sparkle from "@/assets/projects/sparkle-clean.webp";
+import bonke from "@/assets/projects/bonke-studios.webp";
+import event from "@/assets/projects/event-booking.webp";
+import hotel from "@/assets/projects/hotel-booking.webp";
+import portfolio from "@/assets/projects/portfolio.webp";
 
 export type Project = {
   title: string;
