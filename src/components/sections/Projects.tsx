@@ -40,6 +40,16 @@ const Card = ({ p, i }: { p: Project; i: number }) => (
           >
             <Github className="size-3.5" /> GitHub
           </a>
+          {p.live && p.live !== "#" ? (
+            <a
+              href={p.live}
+              target="_blank"
+              rel="noreferrer"
+              className="group/btn inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-border bg-background/60 px-4 py-2 text-sm font-medium text-foreground shadow-card-soft hover:bg-background/70 transition-colors"
+            >
+              Live Demo
+            </a>
+          ) : null}
         </div>
       </div>
     </article>

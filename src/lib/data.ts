@@ -33,7 +33,7 @@ export const PROJECTS: Project[] = [
       "A full-stack booking platform for a professional cleaning company — real-time availability, service selection, payment integration, and admin dashboard.",
     stack: ["React", "Node.js", "MongoDB", "Stripe API"],
     image: sparkle,
-    live: "#",
+    live: "https://sparkleclean-ke.vercel.app/",
     github: "https://github.com/skywalker2004",
   },
   {
@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
       "A robust event management system with real-time seat selection, QR-code ticketing, user authentication, and an organiser dashboard.",
     stack: ["React", "Node.js", "MongoDB", "Express", "QR Code API"],
     image: event,
-    live: "#",
+    live: "https://mcdotkiplalang.mcdot.workers.dev/",
     github: "https://github.com/skywalker2004",
   },
   {
@@ -73,7 +73,7 @@ export const PROJECTS: Project[] = [
       "Engineered for performance, accessibility and design excellence. Lighthouse 95+. Built with React, Framer Motion & Tailwind.",
     stack: ["React", "Vite", "Tailwind", "Framer Motion"],
     image: portfolio,
-    live: "#",
+    live: "https://kelvin-kiprono-portfolio.vercel.app/",
     github: "https://github.com/skywalker2004",
   },
 ];
