@@ -185,24 +185,24 @@ export const TESTIMONIALS = [
       "Kelvin delivered our health platform ahead of schedule. His attention to UX details and backend architecture blew our expectations.",
   },
   {
-    name: "James Mwangi",
-    role: "CEO",
-    company: "Sparkle Clean",
+    name: "Amos Kiplalang",
+    role: "MC",
+    company: "Event Booking System",
     quote:
-      "Professional, responsive, and technically brilliant. The booking system Kelvin built for us handles hundreds of reservations flawlessly.",
+      "As someone who hosts events regularly, I needed a booking system that just works under pressure — Kelvin delivered exactly that. It's reliable, handles real-time bookings smoothly, and has made coordinating events far less stressful.",
   },
   {
-    name: "Tony B.",
-    role: "Founder",
-    company: "Bonke Studios",
+    name: "Kelvin Kiprono",
+    role: "Owner & Developer",
+    company: "Personal Portfolio",
     quote:
-      "Kelvin transformed our studio's online presence completely. The site is fast, beautiful, and easy to manage.",
+      "I built this site to reflect how I actually work — clean code, thoughtful design, and attention to the details that matter. It's a living project I keep refining as I grow, and it represents the standard I hold myself to on every build.",
   },
 ];
 
 export const STATS = [
-  { value: 25, suffix: "+", label: "Projects Completed" },
+  { value: 15, suffix: "+", label: "Projects Completed" },
   { value: 15, suffix: "+", label: "Technologies Mastered" },
-  { value: 1240, suffix: "+", label: "Cups of Coffee" },
+  { value: 20, suffix: "+", label: "Cups of Coffee" },
   { value: 4, suffix: "+", label: "Years Learning" },
 ];
