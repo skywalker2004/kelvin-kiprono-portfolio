@@ -27,21 +27,19 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Kelvin Kiprono — Full-Stack Developer & DevOps Enthusiast</title>
+        <title>Premium Mursik · Kenya</title>
         <meta
           name="description"
-          content="Kelvin Kiprono — Full-Stack Developer in Nairobi, Kenya specialising in React, Node.js & DevOps. Available remote and on-site worldwide."
+          content="Premium mursik from Kenya. Every form. Every size. Straight from the source — delivered to your door."
         />
         <link rel="canonical" href="https://kelvin-kiprono-portfolio.vercel.app/" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Person",
-          name: SITE.name,
-          jobTitle: "Full-Stack Developer",
-          email: `mailto:${SITE.email}`,
-          url: typeof window !== "undefined" ? window.location.origin : "",
-          address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
-          sameAs: [SITE.github],
+          "@type": "Store",
+          name: "Premium Mursik",
+          description: "Premium mursik from Kenya. Every form. Every size. Straight from the source — delivered to your door.",
+          address: { "@type": "PostalAddress", addressLocality: "Kenya", addressCountry: "KE" },
+          areaServed: "Kenya"
         })}</script>
       </Helmet>
 
