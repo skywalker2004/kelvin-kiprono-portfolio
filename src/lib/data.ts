@@ -3,7 +3,7 @@ import sparkle from "@/assets/projects/sparkle-clean.webp";
 import bonke from "@/assets/projects/bonke-studios.webp";
 import event from "@/assets/projects/event-booking.webp";
 import hotel from "@/assets/projects/hotel-booking.webp";
-import murzik from "@/assets/projects/murzik.webp";
+import murzik from "@/assets/projects/murzik.jpeg";
 import portfolio from "@/assets/projects/portfolio.webp";
 
 export type Project = {
