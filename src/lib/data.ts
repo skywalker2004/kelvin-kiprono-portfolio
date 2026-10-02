@@ -3,6 +3,7 @@ import sparkle from "@/assets/projects/sparkle-clean.webp";
 import bonke from "@/assets/projects/bonke-studios.webp";
 import event from "@/assets/projects/event-booking.webp";
 import hotel from "@/assets/projects/hotel-booking.webp";
+import murzik from "@/assets/projects/murzik.webp";
 import portfolio from "@/assets/projects/portfolio.webp";
 
 export type Project = {
@@ -64,6 +65,16 @@ export const PROJECTS: Project[] = [
     stack: ["Laravel", "MySQL", "Blade", "Bootstrap"],
     image: hotel,
     live: "#",
+    github: "https://github.com/skywalker2004",
+  },
+  {
+    title: "Murzik",
+    tagline: "Premium Mursik · Kenya",
+    description:
+      "An e-commerce platform for premium mursik (traditional fermented milk), connecting customers directly to the source. Features product browsing by form and size, secure M-Pesa STK Push checkout, and Cloudinary-powered image delivery for a fast, visual shopping experience.",
+    stack: ["React", "Node.js", "MongoDB", "Cloudinary", "M-Pesa STK Push"],
+    image: murzik,
+    live: "https://fresh-murzik.vercel.app/",
     github: "https://github.com/skywalker2004",
   },
   {
