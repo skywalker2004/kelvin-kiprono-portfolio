@@ -34,7 +34,7 @@ export const Hero = () => {
           className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium text-primary"
         >
           <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          Premium Mursik · Kenya
+          Open to Work · {`${"Nairobi, Kenya"}`}
         </motion.div>
 
         <motion.h1
@@ -43,8 +43,8 @@ export const Hero = () => {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="mx-auto mt-6 max-w-4xl font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl text-balance"
         >
-          <span className="gradient-text">MURSIK</span><br className="hidden sm:block" />
-          Premium, fresh and true to tradition
+          Building <span className="gradient-text">Scalable</span>,<br className="hidden sm:block" />
+          User-Centric Digital Solutions
         </motion.h1>
 
         <motion.p
@@ -53,7 +53,7 @@ export const Hero = () => {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground text-balance"
         >
-          Premium mursik. Every form. Every size. Straight from the source — delivered to your door.
+          Full-Stack Developer specialising in React, Node.js & DevOps — crafting clean, performant apps that solve real-world problems.
         </motion.p>
 
         <motion.div
@@ -62,8 +62,8 @@ export const Hero = () => {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-6 flex items-center justify-center text-base sm:text-lg font-medium"
         >
-          <span className="text-muted-foreground mr-2">From</span>
-          <TypedRotator words={["Small batch", "Freshly made", "Trusted source", "Doorstep delivery"]} />
+          <span className="text-muted-foreground mr-2">I'm a</span>
+          <TypedRotator words={["React Developer", "Node.js Engineer", "DevOps Enthusiast", "Problem Solver"]} />
         </motion.div>
 
         <motion.div
@@ -73,21 +73,21 @@ export const Hero = () => {
           className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
           <Button asChild size="lg" className="group rounded-full bg-primary px-6 shadow-glow hover:bg-primary/90">
-            <a href="#contact">
-              Order Mursik
+            <a href="#projects">
+              View My Work
               <ArrowDown className="ml-2 size-4 transition-transform group-hover:translate-y-0.5" />
             </a>
           </Button>
           <Button asChild size="lg" variant="outline" className="group rounded-full border-border bg-card/50 px-6 backdrop-blur hover:border-primary/50 hover:text-primary">
-            <a href="#about">
-              About Our Source
+            <a href="#contact">
+              Contact Me
               <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-0.5" />
             </a>
           </Button>
         </motion.div>
 
         <div className="mt-14 flex items-center justify-center gap-2 text-xs text-muted-foreground">
-          <MapPin className="size-3.5" /> Kenya · Delivered nationwide
+          <MapPin className="size-3.5" /> Nairobi, Kenya · Available worldwide
         </div>
       </div>
 
